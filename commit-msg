@@ -1,0 +1,15 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Regex pattern for [Task - task_no]: task_description
+PATTERN="^\[Task - [0-9]+\]: .+"
+
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+    echo "❌ Commit message format is incorrect!"
+    echo "✅ Format should be: [Task - task_no]: task_description"
+    exit 1
+fi
+
+exit 0
